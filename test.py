@@ -33,8 +33,8 @@ def get_base64_of_bin_file(bin_file):
 upload= st.file_uploader('Insert image for classification', type=['png','jpg'])
 
 
-my_email = st.secrets['vladimirlabynko@gmail.com']
-model_weight_file = st.secrets['https://www.dropbox.com/s/zimbdjhdtsgfnur/best.hdf5?dl=0']
+my_email = st.secrets['email']
+model_weight_file = st.secrets['model_url']
 
 if not os.path.exists('/best.hdf5'):
     u = urlopen(model_weight_file)
