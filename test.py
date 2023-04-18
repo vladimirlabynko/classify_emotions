@@ -7,6 +7,11 @@ import cv2
 
 import streamlit as st
 import base64
+
+import os
+from urllib.request import urlopen
+import streamlit as st
+
 classes =['happy','sad']
 
 st.markdown('<h1 style="color:black;">Image classification model</h1>', unsafe_allow_html=True)
@@ -26,6 +31,20 @@ def get_base64_of_bin_file(bin_file):
 #img= cv2.imread(r'D:\unet_vgg\seg_test\seg_test\forest\20056.jpg')
 #st.markdown('<h4 style="color:white;">Input image</h4>', unsafe_allow_html=True)
 upload= st.file_uploader('Insert image for classification', type=['png','jpg'])
+
+
+my_email = st.secrets['email']
+model_weight_file = st.secrets['model_url']
+
+if not os.path.exists('./best.hdf5'):
+    u = urlopen(model_weight_file)
+    data = u.read()
+    u.close()
+    with open('best.hdf5', 'wb') as f:
+        f.write(data)
+
+
+
 c1, c2= st.columns(2)
 if upload is not None:
   im= Image.open(upload)
